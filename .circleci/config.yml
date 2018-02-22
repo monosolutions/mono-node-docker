@@ -1,0 +1,21 @@
+version: 2
+jobs:
+    build:   
+        working_directory: /tmp/repo 
+        docker:
+            - image: docker:17.09.1-ce-git
+        steps:
+            - checkout 
+            - setup_remote_docker:
+                docker_layer_caching: true
+                version: 17.05.0-ce
+            - run:
+                name: Build Docker image
+                command: docker build -t monosolutions/node:1.0.$CIRCLE_BUILD_NUM -t monosolutions/node:latest .
+            - run: 
+                name: push to repository
+                command: |
+                    docker login  -u $DOCKER_USER -p $DOCKER_PASS
+                    docker push monosolutions/node:1.0.$CIRCLE_BUILD_NUM
+                    docker push monosolutions/node:latest
+           
