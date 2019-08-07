@@ -1,4 +1,4 @@
-FROM node:8-slim
+FROM node:10-slim
 RUN apt-get update 
 RUN apt-get install -y jq zip build-essential python2.7 python2.7-dev           
 RUN ln /usr/bin/python2.7 /usr/bin/python2 
