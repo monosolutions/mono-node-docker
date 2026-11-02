@@ -1,6 +1,7 @@
-FROM node:10.19.0-slim
-RUN apt-get update 
-RUN apt-get install -y jq zip build-essential python2.7 python2.7-dev git curl
-RUN ln /usr/bin/python2.7 /usr/bin/python2 
-RUN curl -O  https://bootstrap.pypa.io/pip/2.7/get-pip.py && python2.7 get-pip.py && rm get-pip.py
+FROM node:24-slim
+RUN apt-get update \
+    && apt-get install -y jq zip build-essential git curl python3 python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+RUN ln /usr/bin/python3 /usr/bin/python 
+RUN ln /usr/bin/pip3 /usr/bin/pip
 RUN pip install awscli
